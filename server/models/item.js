@@ -3,11 +3,10 @@ var Schema = mongoose.Schema;
 
 // Define collection and schema for Items
 var Item = new Schema({
-
-  name: String,
  
-  text:String
+  text: String
   
 });
 
-module.exports = mongoose.model('Item', Item);
+var Item = mongoose.model('Item', Item);
+module.exports = Item;
