@@ -1,52 +1,66 @@
 <template>
-  <div>
-    <h1>Create An Item</h1>
-    <form>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="form-group">
-            <label>Item Name:</label>
-            <input type="text" class="form-control" v-model="item.name">
-          </div>
+  <div class="posts">
+    <h1>Add Post</h1>
+      <div class="form">
+        <div>
+          <input type="text" name="title" placeholder="TITLE" v-model="title">
         </div>
+        <div>
+          <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Item Price:</label>
-              <input type="text" class="form-control col-md-6" v-model="item.price">
-            </div>
-          </div>
-        </div><br />
-        <div class="form-group">
-          <button class="btn btn-primary">Add Item</button>
+        <div>
+          <button class="app_post_btn" @click="addPost">Add</button>
         </div>
-    </form>
+      </div>
   </div>
 </template>
 
 <script>
-    const marked = require("marked");
-    const config = require('../../config/DB');
-    export default {
-        data(){
-            return{
-                item:{text: '# Good morning dear user!'}
-            }
-        },
-        computed: {
+import PostsService from '@/services/PostsService'
+export default {
+  name: 'NewItem',
+  data () {
+    return {
+      text: ''
+    }
+  },
+   computed: {
             compiledMarkdown: function () {
                 return marked(this.item.text, { sanitize: true })
             }
-        },
-        methods: {
-            addItem(){
-                let uri = 'http://localhost:' + config.port + '/items/add';
-                this.axios.post(uri, this.item).then((response) => {
-                    this.$router.push({name: 'DisplayItem'})
-                })
-            }
-        }
+   },
+
+  methods: {
+    async addItem () {
+      await PostsService.addItem({
+
+        text: this.text
+      })
+      this.$router.push({ name: 'Items' })
+    }
+  }
 }
 </script>
-
+<style type="text/css">
+.form input, .form textarea {
+  width: 500px;
+  padding: 10px;
+  border: 1px solid #e0dede;
+  outline: none;
+  font-size: 12px;
+}
+.form div {
+  margin: 20px;
+}
+.app_post_btn {
+  background: #4d7ef7;
+  color: #fff;
+  padding: 10px 80px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  width: 520px;
+  border: none;
+  cursor: pointer;
+}
+</style>
