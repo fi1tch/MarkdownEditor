@@ -4,15 +4,12 @@ import App from './App'
 
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  template: '<App/>',
-  components: { App }
-})
-
-
 /*new Vue({
+  el: '#app'
+})*/
+
+
+new Vue({
 	el: '#app',
 	data: {
 		input: '# Make a Markup Editor using Vue.js'
@@ -28,4 +25,4 @@ new Vue({
 			this.input = e.target.value
 		}
 	}
-}); */
+}); 
