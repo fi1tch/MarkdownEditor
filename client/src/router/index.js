@@ -2,8 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Posts from '@/components/Item'
 
+Vue.use(Router)
 
-const routes = [
+export default new Router({
+
+    routes : [
     {
         name: 'Item',
         path: '/items',
@@ -15,5 +18,6 @@ const routes = [
         name: 'NewItem',
         component: NewItem
   }
-];
+]
+})
 
